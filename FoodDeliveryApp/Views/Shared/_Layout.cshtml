@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FoodDeliveryApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FoodDeliveryApp.styles.css" asp-append-version="true" />
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #ff6347; /* Tomato color for food theme */
+            transition: background-color 0.3s ease;
+        }
+
+            .navbar .navbar-brand {
+                font-size: 1.8em;
+                font-weight: 700;
+                color: #fff;
+            }
+
+            .navbar .nav-link {
+                font-size: 1.1em;
+                color: #fff;
+                padding: 10px 20px;
+                transition: background-color 0.3s ease;
+            }
+
+                .navbar .nav-link:hover {
+                    background-color: #333;
+                    color: #fff;
+                    border-radius: 5px;
+                }
+
+        /* Sticky Navbar */
+        .sticky-navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-image: url('~/images/hero-background.jpg'); /* Replace with a food-related image */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 150px 0;
+            text-align: center;
+        }
+
+            .hero-section h1 {
+                font-size: 3.5em;
+                font-weight: 700;
+                margin-bottom: 20px;
+            }
+
+            .hero-section p {
+                font-size: 1.3em;
+                margin-bottom: 30px;
+            }
+
+            .hero-section .btn {
+                background-color: #fff;
+                color: #ff6347;
+                font-weight: 700;
+                padding: 10px 30px;
+                border-radius: 50px;
+                transition: background-color 0.3s;
+            }
+
+                .hero-section .btn:hover {
+                    background-color: #ff4500;
+                    color: #fff;
+                }
+
+        /* Card Styles for Food Items */
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #ff6347;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #ff4500;
+            }
+
+        /* Footer */
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+            .footer a {
+                color: #fff;
+                margin: 0 10px;
+                text-decoration: none;
+            }
+
+                .footer a:hover {
+                    text-decoration: underline;
+                }
+
+        /* Testimonial */
+        .testimonial {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Featured Offers */
+        .offer-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .offer-title {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .offer-description {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNavbar">
+        <a class="navbar-brand" href="#">FoodDeliveryApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#mainNavbarContent" aria-controls="mainNavbarContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbarContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="AdminAccount" asp-action="Login">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="CustomerAccount" asp-action="Login">Customer</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Body -->
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>Welcome to FoodDeliveryApp</h1>
+        <p>Order your favorite food from the best local restaurants</p>
+        <a href="#menu" class="btn">Browse Menu</a>
+    </section>
+
+    <!-- Popular Menu Section -->
+    <div class="container mt-5" id="menu">
+        <h2 class="text-center mb-4">Our Popular Menu</h2>
+        <div class="row">
+            <!-- Food Item 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://images.creativemarket.com/0.1.0/ps/6470125/1820/1214/m1/fpnw/wm1/i80hbla2s6wsmd6jaaoeipipz7uvnmxydfidhnsvkwdivvi92u99nvchp3dq19ey-.jpg?1559306650&s=4cfcd1613939f0bbdb3f2b068aa8a6fe" alt="Pizza">
+                    <div class="card-body">
+                        <h5 class="card-title">Pizza</h5>
+                        <p class="card-text">Delicious cheese pizza with your favorite toppings!</p>
+                        <a href="#" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Food Item 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://t4.ftcdn.net/jpg/02/44/61/19/240_F_244611927_yrh0ZIYwOGTDurVnCMAt7Cq8DR4sBkB0.jpg" alt="Burger">
+                    <div class="card-body">
+                        <h5 class="card-title">Burger</h5>
+                        <p class="card-text">Juicy beef burger with crispy fries on the side.</p>
+                        <a href="#" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Food Item 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://www.shutterstock.com/image-photo/pasta-penne-bolognese-white-plate-600nw-2166798613.jpg" alt="Pasta">
+                    <div class="card-body">
+                        <h5 class="card-title">Pasta</h5>
+                        <p class="card-text">Freshly made pasta with creamy sauce and herbs.</p>
+                        <a href="#" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">What Our Customers Say</h2>
+            <div class="row">
+                <!-- Testimonial 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"The food was amazing! Fast delivery and great customer service. Highly recommend!"</p>
+                        <h5 class="testimonial-author">John Doe</h5>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"I ordered the pizza, and it was so delicious! I'll definitely order again!"</p>
+                        <h5 class="testimonial-author">Sarah Smith</h5>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Great variety of food, and the delivery was super fast. Thanks, FoodDeliveryApp!"</p>
+                        <h5 class="testimonial-author">Emily Johnson</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Offers Section -->
+    <section class="featured-offers bg-light py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Featured Offers</h2>
+            <div class="row">
+                <!-- Offer 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="offer-card p-4 bg-white shadow">
+                        <h5 class="offer-title">20% Off Your First Order</h5>
+                        <p class="offer-description">Sign up today and get 20% off your first order. Don't miss out!</p>
+                        <a href="#" class="btn btn-primary">Claim Offer</a>
+                    </div>
+                </div>
+                <!-- Offer 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="offer-card p-4 bg-white shadow">
+                        <h5 class="offer-title">Free Delivery on Orders Over $30</h5>
+                        <p class="offer-description">Enjoy free delivery when you spend $30 or more on your next order.</p>
+                        <a href="#" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+                <!-- Offer 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="offer-card p-4 bg-white shadow">
+                        <h5 class="offer-title">Buy 1 Get 1 Free on Burgers</h5>
+                        <p class="offer-description">Get an additional burger for free when you order one. Limited time only!</p>
+                        <a href="#" class="btn btn-primary">Get Offer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Categories Section -->
+    <section class="food-categories py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Explore Our Food Categories</h2>
+            <div class="row">
+                <!-- Dessert Category -->
+                <div class="col-md-4 mb-4">
+                    <div class="category-card p-4 bg-white shadow">
+                        <h5 class="category-title">Desserts</h5>
+                        <p class="category-description">From cakes to ice creams, satisfy your sweet cravings!</p>
+                        <a href="#" class="btn btn-primary">Browse Desserts</a>
+                    </div>
+                </div>
+                <!-- Beverages Category -->
+                <div class="col-md-4 mb-4">
+                    <div class="category-card p-4 bg-white shadow">
+                        <h5 class="category-title">Beverages</h5>
+                        <p class="category-description">Refresh yourself with our variety of beverages.</p>
+                        <a href="#" class="btn btn-primary">Browse Beverages</a>
+                    </div>
+                </div>
+                <!-- Special Offers Category -->
+                <div class="col-md-4 mb-4">
+                    <div class="category-card p-4 bg-white shadow">
+                        <h5 class="category-title">Special Offers</h5>
+                        <p class="category-description">Check out our exclusive deals and discounts.</p>
+                        <a href="#" class="btn btn-primary">Browse Offers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="mb-4">Contact Us</h2>
+            <p class="mb-4">Have any questions? Reach out to us, and we’ll be happy to assist you!</p>
+            <a href="mailto:support@fooddeliveryapp.com" class="btn btn-primary">Email Us</a>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 FoodDeliveryApp. All rights reserved.</p>
+            <p>
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a>
+            </p>
+            <div class="social-media-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Custom JavaScript for Sticky Navbar and Smooth Scrolling -->
+    <script>
+        $(document).ready(function () {
+            // Sticky Navbar
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 50) {
+                    $('#mainNavbar').addClass('sticky-navbar');
+                } else {
+                    $('#mainNavbar').removeClass('sticky-navbar');
+                }
+            });
+
+            // Smooth Scrolling for Anchor Links
+            $('a.nav-link, a.btn').on('click', function (event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+                        window.location.hash = hash;
+                    });
+                }
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
